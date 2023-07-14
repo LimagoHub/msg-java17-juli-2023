@@ -1,5 +1,9 @@
 package de.tiere;
 
+import main.cleaner.DefaultCleaner;
+
+import java.lang.ref.Cleaner;
+
 public class Schwein {
 
     private String name;
@@ -9,6 +13,7 @@ public class Schwein {
 
     static {
         counter = 0;
+
     }
 
     public static int getCounter() {
@@ -19,12 +24,13 @@ public class Schwein {
         this("Nobody");
     }
 
-  
+
 
     public Schwein(final String name) {
         this.name = name;
         this.gewicht = 10;
         counter ++;
+        DefaultCleaner.instance.register(this, ()->counter--);
     }
 
     public String getName() {
